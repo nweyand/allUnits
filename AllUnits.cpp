@@ -57,7 +57,7 @@ void AllUnits::addTest(QObject *pTest)
 	instance.vTests.push_back( pTest );
 }
 
-int AllUnits::run( int argc, char *argv[] )
+int AllUnits::run( int argc, char **argv )
 {
 	int nReturn = 0;
 
@@ -70,6 +70,9 @@ int AllUnits::run( int argc, char *argv[] )
 			nReturn += QTest::qExec(pTests[i], argc, argv);
 		}
 	}
+
+	qDeleteAll( instance.vTests );
+	instance.vTests.clear();
 
 	return nReturn;
 }

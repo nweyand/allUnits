@@ -38,18 +38,34 @@
 #include <vector>
 #include <QtTest>
 
+/**
+ * @brief The AllUnits class implements a uniform way of calling multiple Qt Unit Test Objects.
+ */
 class AllUnits
 {
+public:
+	/**
+	 * @brief addTest adds a new test to the test queue.
+	 * @param pTest The new test to be added.
+	 */
+	static void addTest(QObject *pTest);
+
+	/**
+	 * @brief run executes all queued Qt Unit Test Objects.
+	 * Optionally, the command line arguments <code>argc</code> and </code>argv<code> can be
+	 * provided. See http://doc.qt.io/qt-5/qtest-overview.html#qt-test-command-line-arguments
+	 * for more information.
+	 * @return The summed return value of all test objects.
+	 */
+	static int  run(int argc = 0, char **argv = Q_NULLPTR);
+
+
 private:
 	std::vector<QObject*> vTests;
 	static AllUnits instance;
 
 	AllUnits();
 	~AllUnits();
-
-public:
-	static void addTest(QObject *pTest);
-	static int  run(int argc, char *argv[]);
 };
 
 #endif // ALLUNITS_H
